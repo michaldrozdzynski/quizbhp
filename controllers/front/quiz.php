@@ -44,7 +44,6 @@ class QuizBhpQuizModuleFrontController extends ModuleFrontController {
     }
 
     public function processPostRequest() {
-        dump($_POST);
         $point = 0.0;
         $maxPoint = count($_POST) - 1;
         foreach ($_POST as $key => $item) {

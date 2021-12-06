@@ -20,11 +20,11 @@
         </div>
         {/if}
         <form method="POST" action="{Context::getContext()->link->getModuleLink('quizbhp', 'quiz')}">
-            {foreach from=$questions item=question}
-                <div class="form-group"><label>{$question['question']}</label>
-                    {foreach $question['answers'] as $answer}
+            {for $index=0 to count($questions) - 1}
+                <div class="form-group"><label style="text-align: left; font-weight: bold;">{$index + 1}. {$questions[$index]['question']}</label>
+                    {foreach $questions[$index]['answers'] as $answer}
                         <div class="form-check">
-                            <input class="form-check-input" required type="radio" name="question_{$question['id_quiz_bhp_question']}" id="answer_{$answer['id_quiz_answer']}" value="{$answer['id_quiz_answer']}">
+                            <input class="form-check-input" required type="radio" name="question_{$questions[$index]['id_quiz_bhp_question']}" id="answer_{$answer['id_quiz_answer']}" value="{$answer['id_quiz_answer']}">
                             <label class="form-check-label" for="answer_{$answer['id_quiz_answer']}">
                                 {$answer['answer']}
                             </label>
@@ -32,7 +32,7 @@
                     {/foreach}
                     <input type="hidden" name='quizId' value="{Tools::getValue('quizId')}"/>
                 <div>
-            {/foreach}
+            {/for}
             <button type="submit" class="btn btn-primary">Prześlij</button>
             <a href="{Context::getContext()->link->getModuleLink('quizbhp', 'choosequiz')}"><button type="button" class="btn btn-secondary">Wróć</button></a>
         </form>
