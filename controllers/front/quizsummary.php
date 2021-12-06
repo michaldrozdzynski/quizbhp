@@ -15,19 +15,10 @@ class QuizBhpQuizSummaryModuleFrontController extends ModuleFrontController {
 	}
 
     public function processGetRequest() {
-        $query = 'SELECT * FROM `' . _DB_PREFIX_ . 'quiz_result` WHERE id_quiz_bhp = \'' . Tools::getValue('quizId') . '\'';
-        $row = Db::getInstance()->getRow($query);
-
-        if ($row['id_customer'] != Context::getContext()->customer->id || $row['filled_form'] != 0) {
-            Tools::redirect(Context::getContext()->link->getModuleLink('quizbhp', 'choosequiz'));
-        }
-
         $this->setTemplate('module:quizbhp/views/templates/front/quizsummary.tpl');
     }
 
     public function processPostRequest() {
-        $query = 'UPDATE `' . _DB_PREFIX_ . 'quiz_result` SET filled_form = 1 WHERE id_quiz_bhp = \'' . Tools::getValue('quizId') . '\' AND id_customer = ' . Context::getContext()->customer->id;
-        Db::getInstance()->execute($query);
         $name = Tools::getValue('name');
         $surname = Tools::getValue('surname');
         $placeOfBirth = Tools::getValue('placeOfBirth');

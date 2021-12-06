@@ -16,12 +16,6 @@ class QuizBhpQuizModuleFrontController extends ModuleFrontController {
 
     public function processGetRequest() {
         $db = Db::getInstance();
-        $query = 'SELECT * FROM `' . _DB_PREFIX_ . 'quiz_result` WHERE id_quiz_bhp = \'' . Tools::getValue('quizId') . '\'';
-        $row = $db->getRow($query);
-
-        if ($row['id_customer'] == Context::getContext()->customer->id) {
-            Tools::redirect(Context::getContext()->link->getModuleLink('quizbhp', 'quizsummary', ['quizId' => Tools::getValue('quizId')]));
-        }
 
         $query = 'SELECT name, id_quiz_bhp FROM `' . _DB_PREFIX_ . 'quiz_bhp` WHERE id_quiz_bhp = \'' . Tools::getValue('quizId') . '\'';
         $result = Db::getInstance()->executeS($query);
@@ -72,10 +66,6 @@ class QuizBhpQuizModuleFrontController extends ModuleFrontController {
 
         if ($point / $maxPoint > $percent) {
             $db = Db::getInstance();
-            $db->insert("quiz_result", [
-                'id_quiz_bhp' => Tools::getValue('quizId'),
-                'id_customer' => Context::getContext()->customer->id,
-            ]);
             Tools::redirect(Context::getContext()->link->getModuleLink('quizbhp', 'quizsummary', ['quizId' => Tools::getValue('quizId')]));
         } else {
             Tools::redirect(Context::getContext()->link->getModuleLink('quizbhp', 'quiz', ['quizResult' => 'failedQuiz', 'quizId' => Tools::getValue('quizId')]));
