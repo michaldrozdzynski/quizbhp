@@ -1,0 +1,9 @@
+{shop_url}
+
+Imię: {name}
+
+Nazwisko: {surname}
+
+Miejsce urodzenia: {placeOfBirth}
+
+Data urodzenia: {dateOfBirth}
